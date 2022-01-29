@@ -1,0 +1,23 @@
+h1{
+    text-align: center;
+    color:rgb(99, 102, 241);
+    margin-top: 3%;
+}
+.maxGap{
+    text-align: center;
+border: solid;
+width: 30%;
+margin-left: 35%;
+margin-top: 20px;
+color: rgb(0, 82, 130);
+border-color: rgb(99, 102, 241);
+padding: 10px;
+}
+.date{
+    margin: 10px;
+    color: rgb(99, 102, 241);
+}
+.flex{
+    display: flex;
+    direction: rtl;
+}

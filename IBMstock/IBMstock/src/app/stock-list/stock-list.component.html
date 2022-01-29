@@ -1,0 +1,50 @@
+
+<h1>IBM נתוני מניות</h1>
+<div class="field col-12 md:col-4 flex">
+    <h2 class="date" for="icon">חיפוש על פי תאריך:</h2>
+    <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"  (onSelect)="onDateSelected($event)"[showIcon]="true" inputId="icon"></p-calendar>
+   
+</div>
+
+<div class="card">
+  
+    <div class="mb-3">
+        <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+    </div>
+    <p-table [value]="stockList" [paginator]="true" [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" responsiveLayout="scroll"
+        currentPageReportTemplate="" [rowsPerPageOptions]="[20,25,30]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>תאריך</th>
+                <th pSortableColumn="open"><p-sortIcon field="open"></p-sortIcon>מחיר פתיחה</th>
+                <th pSortableColumn="high"><p-sortIcon field="high"></p-sortIcon>מחיר הכי גבוה</th>
+                <th pSortableColumn="low"><p-sortIcon field="low"></p-sortIcon>מחיר הכי נמוך</th>
+                <th pSortableColumn="close"><p-sortIcon field="close"></p-sortIcon>מחיר סגירה</th>
+                <th pSortableColumn="gap"><p-sortIcon field="gap"></p-sortIcon>הפרש המחיר בין פתיחה לסגירה</th>
+
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-stock>
+            <tr>
+                <td>{{stock.date |  date: 'dd/MM/yyyy'}}</td>
+                <td>{{stock.open}}</td>
+                <td>{{stock.high}}</td>
+                <td>{{stock.low}}</td>
+                <td>{{stock.close}}</td>
+                <td>{{math.abs(stock.close-stock.open)}}</td>
+
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<div *ngIf="maxGap!==0" class="maxGap">
+
+    <div>{{maxGap}}:רווח מקסימלי</div>
+    <div>{{dayToBuy |  date: 'dd/MM/yyyy'}}: בתאריך קניה </div>
+    <div>{{dayTosell |  date: 'dd/MM/yyyy'}}:ותאריך מכירה </div>
+
+</div>
