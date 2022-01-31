@@ -23,9 +23,7 @@ export class StockListComponent implements OnInit {
   constructor(private stockListService:StockListService) { }
 
   ngOnInit(): void {
-      debugger
     this.getStockList();
-
   }
 
 
@@ -39,31 +37,24 @@ export class StockListComponent implements OnInit {
         data["Time Series (Daily)"][key]["2. high"],
         data["Time Series (Daily)"][key]["3. low"])
     });
-    // this.c();
     this.originalStockList=[...this.stockList];
   this.culculate();
-
-    debugger
   });
   }
+
   onDateSelected($event:any){
-      debugger
       this.stockList= this.originalStockList.filter(x=> x.date.setHours(0,0,0,0) == $event.setHours(0,0,0,0));
   }
 
   clear(){
-      debugger
       this.stockList=this.originalStockList;
   }
 culculate(){
-  // this.stockList=this.stockList.splice(0,90);
     this.sortList=this.stockList.sort((a,b)=>{return a.date.getTime()-  b.date.getTime()});
     let index=0;
     let minIndex=0;
     let maxIndex=0;
     let gap=0;
-
-    debugger
 
     while (index < this.sortList.length) {    
        let listBetweenIndexes=[...this.sortList].slice(index+1,this.sortList.length);//cut array from current index to end of array
@@ -84,46 +75,14 @@ culculate(){
      index=indexOfLargestHighInOriginalList+1;
      if(index>=this.sortList.length-1)
           break;
-
-       
+      
     }
 
     this.maxGap=gap;
     this.dayToBuy=this.sortList[minIndex].date;
     this.dayTosell=this.sortList[maxIndex].date;
-debugger
 }
-// c(){
-//     debugger
-//    this.stockList=this.stockList.splice(0,90);
-//     this.sortList=this.stockList.sort((a,b)=>{return a.date.getTime()-  b.date.getTime()});
-//     let index=0;
-//     let minIndex=0;
-//     let maxIndex=0;
-//     let gap=0;
-//     let m=0;
-//     let mi=0;
-//     let g=0;
-//     for(let i=0;i<this.sortList.length;i++){
-//          index=0;
-//          minIndex=0;
-//          maxIndex=0;
-//          gap=0;
-//         for(let t=i+1;t<this.sortList.length;t++){
-//             if(this.sortList[t].high-this.sortList[i].low>gap){
-//                 gap=this.sortList[t].high-this.sortList[i].low;
-//                 maxIndex=i;
-//                 minIndex=t;
-//             }
-//         }
-//         if(gap>g){
-//             g=gap;
-//             m=maxIndex
-//             mi=minIndex;
-//         }
-//     }  
-//     debugger
-// }
+
   next() {
     this.first = this.first + this.rows;
 }
@@ -144,7 +103,6 @@ isLastPage(): boolean {
 isFirstPage(): boolean {
     return this.stockList ? this.first === 0 : true;
 }
-
 
 
 }
